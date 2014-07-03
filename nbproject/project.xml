@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.php.project</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/php-project/1">
+            <name>simrs</name>
+        </data>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>Harga</word>
+            <word>Merk</word>
+            <word>Pasien</word>
+            <word>pelaksanaan</word>
+            <word>PPN</word>
+            <word>Satuan</word>
+        </spellchecker-wordlist>
+    </configuration>
+</project>
