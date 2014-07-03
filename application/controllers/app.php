@@ -11,7 +11,8 @@ class APP extends CI_Controller{
     }
 
     function index(){
-    	$data['title'] = "Home";
+    	/*
+        $data['title'] = "Home";
     	$data['active'] = '';
         $data['module'] = $this->m_app->get_data_module($this->session->userdata('id_group'));
         $data['page'] = 'home_page';
@@ -23,7 +24,8 @@ class APP extends CI_Controller{
         } else {
             $this->login();
         }
-
+        */
+        $this->load->view('dashboard');
     }
 
     function login(){
