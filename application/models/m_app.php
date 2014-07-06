@@ -17,4 +17,27 @@ class M_app extends CI_Model{
         return $this->db->query($sql)->result();
     }
 
+    function cek_login() {
+        $sql = "select * from users u
+        where u.username = '".post_safe('username')."' and u.password = '".md5(post_safe('password'))."'";
+        //echo $query;
+        $hasil=$this->db->query($sql);
+        return $hasil->row();
+    }
+
+    function cek_password($data) {
+        $sql = "select * from users u
+        where u.id = '".$data['id']."' and u.password = '".md5($data['password'])."'";
+        //echo $query;
+        $hasil=$this->db->query($sql);
+        $num= $hasil->num_rows();
+        if ($num>0) {
+            $status=true;
+        }
+        else {
+            $status=false;
+        }
+        return $status;
+    }
+
 }

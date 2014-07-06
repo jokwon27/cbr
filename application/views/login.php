@@ -20,89 +20,50 @@
 
   <head>
     <meta charset="utf-8">
-    <title>Login | Farmagitechs</title>
+    <title>Slick Admin</title>
     <meta name="author" content="John">
     <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
-    <meta name="description" content="Clinical App">
-    <meta name="keywords" content="Clinical system, Clinic, Klinik, Apotek, Farmasi, Pharmacy">
-    <script src="<?= base_url('assets/js/html5-trunk.js') ?>"></script>
-    <link rel="shortcut icon" href="<?= base_url('assets/img/favicon.png') ?>" />
-    <link href="<?= base_url('assets/css/bootstrap.css') ?>" rel="stylesheet">
-    <link href="<?= base_url('assets/css/main.css') ?>" rel="stylesheet">
+    <meta name="description" content="Slick Admin Admin UI">
+    <meta name="keywords" content="Slick Admin, Admin UI, Admin Dashboard, John">
+    
+    <script src="<?= base_url() ?>/assets/js/html5-trunk.js"></script>
+    
+    <link href="<?= base_url() ?>/assets/icomoon/style.css" rel="stylesheet">
+    <!--[if lte IE 7]>
+    <script src="css/icomoon-font/lte-ie7.js"></script>
+    <![endif]-->
 
-    <style type="text/css">
-    body{
-        background: #2b2b2b;
-      }
-    </style>
-    <script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>
+    <!-- bootstrap css -->
+    <link href="<?= base_url() ?>/assets/css/bootstrap.css" rel="stylesheet">
 
-
-    <script src="<?= base_url() ?>assets/js/bootstrap.js"></script>
-    <script src="<?= base_url() ?>assets/js/bootbox.js"></script>
+    <!-- custom css -->
+    <link href="<?= base_url() ?>/assets/css/main.css" rel="stylesheet">
+    <script src="<?= base_url() ?>/assets/js/jquery.min.js"></script>
     <script type="text/javascript">
-    $(function() {
-        $('#username').focus();
-        localStorage.setItem("dc_menu", '');
-        localStorage.setItem("dc_nama_menu", '');
-        localStorage.setItem("dc_modul", '');
-
-        $('#logmein ').submit(function(){
-          cek_shift();
-        });
-    });
-
-    function cek_shift(){
-      var shift_now = $('#shift').val();
-      $.ajax({
-            url: '<?= base_url("app/cek_shift") ?>/'+shift_now,
-            dataType: 'json',
-            success: function(data) {
-                var message = data.message;
-
-                if (data.status === false) {
-                  bootbox.dialog({
-                    message: message,
-                    title: "Informasi",
-                    buttons: {
-                      batal: {
-                        label: '<i class="fa fa-refresh"></i> Sesuaikan dengan shift sekarang',
-                        className: "btn-default",
-                        callback: function() {
-                          $('#shift').val(data.shift);
-                        }
-                      },
-                      hapus: {
-                        label: '<i class="fa fa-trash-o"></i>  Lanjutkan',
-                        className: "btn-primary",
-                        callback: function() {
-                          logmein();
-                        }
-                      }
-                    }
-                  });
-
-                }else{
-                  logmein();
-                }
-            }
-        });
-    }
-    function logmein() {
+    
+    $(function(){
+      $('#formsign').submit(function(){
+        
         $.ajax({
-            url: '<?= base_url("users/logmein") ?>',
-            data: $('#logmein').serialize(),
-            type: 'POST',
-            dataType: 'json',
-            success: function(data) {
-                if (data.status === true) {
-                    location.reload();
-                } else {
-                    location.reload();
-                }
-            }
-        });
-    }
+              url: '<?= base_url("app/login") ?>',
+              type: 'POST',
+              dataType: 'json',
+              data: $('#formsign').serialize(),
+              cache: false,
+              success: function(data) {
+                console.log(data)
+                 location.href = "<?= base_url('')?>";
+              }
+          });
+
+        return false;
+      });
+
+      $('#formsign').hide();
+      $('#formsign').show('slow');
+    });
+  
+
     </script>
   </head>
 
@@ -111,37 +72,34 @@
     <!-- Main Container start -->
     <div class="main-container">
       <div class="row">
-        <form class="login-wrapper" id="logmein" method="post">
+        
+        <?= form_open('','id=formsign class="login-wrapper"') ?>
           <div class="header">
             <div class="row">
               <div class="col-md-12">
-                <h3>Login<img src="<?= base_url('assets/img/logo.jpg') ?>" alt="Logo" class="pull-right"></h3>
-                <p>Isikan Username dan password untuk login.</p>
+                <h3>Login <!--<img src="<?= base_url() ?>/assets/img/logo.png" alt="Logo" class="pull-right"> --></h3>
+                <p>Fill out the form below to login.</p>
               </div>
             </div>
           </div>
           <div class="content">
             <div class="row">
               <div class="col-md-12 col-sm-12">
-                <input class="input col-md-12 col-sm-12 email" id="username" name="username" placeholder="Username" required="required" type="text" value="" />
+                <input name="username" class="input col-md-12 col-sm-12 email" id="" name="" placeholder="Username" required="required" value="">
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 col-sm-12">
-                <input class="input col-md-12 col-sm-12 password" id="password" name="password" placeholder="Password" required="required" type="password" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 col-sm-12">
-                <?= form_dropdown('shift', $shift, $shift_now , 'id=shift class="input col-md-12 col-sm-12"') ?>
+                <input name="password" class="input col-md-12 col-sm-12 password" id="" name="" placeholder="********" required="required" type="password">
               </div>
             </div>
           </div>
           <div class="actions">
-                <input type="button" class="btn btn-danger" onclick="cek_shift();" value="Log In" />
+            <button type="submit" class="btn btn-danger">Login</button>
+            <!-- <a class="link" href="#">Forgot Password?</a> -->
             <div class="clearfix"></div>
           </div>
-        </form>
+        <?= form_close() ?>
       </div>
     </div>
     <!-- Main Container end -->
