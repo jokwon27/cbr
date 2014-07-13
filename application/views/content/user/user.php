@@ -14,6 +14,12 @@
             return false;
         });
 
+        $('.form-control').keyup(function(){
+            if($(this).val() !== ''){
+                dc_validation_remove(this);
+            }
+        });
+
         
 	});
 
@@ -24,13 +30,18 @@
             stop = true; 
         }
 
+        if ($('#nama').val() == '') {
+            dc_validation('#nama', 'Nama harus diisi!');
+            stop = true; 
+        }
+
         if (stop) {
             return false;
         };
         
         $.ajax({
             type : 'POST',
-            url: '<?= base_url("admin/user_save") ?>/', 
+            url: '<?= base_url("app/user_save") ?>/', 
             cache: false,
             dataType: 'json',
             data: $('#formtambah').serialize(),
@@ -65,7 +76,7 @@
         var id_user =  $('input[name=id_user]').val();
         $.ajax({
                 type : 'POST',
-                url: '<?= base_url("admin/save_privileges") ?>/'+id_user, 
+                url: '<?= base_url("app/save_privileges") ?>/'+id_user, 
                 cache: false,
                 dataType: 'json',
                 data: $('#formpriv').serialize(),
@@ -83,7 +94,7 @@
     }
 
     function reset_data(){
-        $('input[name=id], #user, #search').val('');
+        $('input[name=id], .form-control').val('');
         dc_validation_remove('.myinput');
     }
 
@@ -99,7 +110,7 @@
     function get_user_list(p){
         $.ajax({
             type : 'GET',
-            url: '<?= base_url("admin/user_list") ?>/'+p,
+            url: '<?= base_url("app/user_list") ?>/'+p,
             data: $('#formtambah').serialize()+'&search='+$('#search').val(),
             cache: false,
             success: function(data) {
@@ -108,17 +119,18 @@
         });
     }
 
-    function edit_user(id, username){
+    function edit_user(id, username, nama){
         $('#judul_dialog').html('Edit');
         $('input[name=id]').val(id);
         $('#user').val(username);
+        $('#nama').val(nama);
         $('#form_tambah').modal('show');
     }
 
     function edit_privileges_user(id){
         $.ajax({
             type : 'GET',
-            url: '<?= base_url("admin/get_privileges") ?>/'+id,
+            url: '<?= base_url("app/get_privileges") ?>/'+id,
             cache: false,
             success: function(data) {
                 $('#priv_body').html(data);
@@ -148,7 +160,7 @@
                     action: function(dialogItself){
                          $.ajax({
                             type : 'GET',
-                            url: '<?= base_url("admin/user_delete") ?>/'+id+'/'+page,
+                            url: '<?= base_url("app/user_delete") ?>/'+id+'/'+page,
                             cache: false,
                             success: function(data) {
                                 $('#user_list').html(data);
@@ -185,7 +197,7 @@
                     action: function(dialogItself){
                          $.ajax({
                             type : 'GET',
-                            url: '<?= base_url("admin/reset_password") ?>/'+id+'/',
+                            url: '<?= base_url("app/reset_password") ?>/'+id+'/',
                             cache: false,
                             success: function(data) {
                                 message_custom('success', 'Reset Password', 'anda berhasil mereset password', '');
@@ -216,7 +228,7 @@
             <input type="text" class="form-control" id="search" placeholder="Username..." onkeyup="get_user_list(1)" />
             <span class="input-group-btn">
                 <button class="btn btn-default" type="button" >
-                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="fa fa-search"></span>
                 </button>
             </span>
         </div>
@@ -238,7 +250,13 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Username</label>
             <div class="col-sm-6">
-            <?= form_input('user','','class="form-control myinput" id=user')?>
+                <?= form_input('user','','class="form-control myinput" id=user')?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Nama</label>
+            <div class="col-sm-6">
+                <?= form_input('nama','','class="form-control myinput" id=nama')?>
             </div>
         </div>
         <div class="form-group">
@@ -266,8 +284,10 @@
             <h4 class="modal-title">Edit User Privileges</h4>
           </div>
         <div class="modal-body">
-             <?= form_hidden('id_user') ?>
-             <div id="priv_body"></div>
+            <?= form_open('','id=formpriv class="form-horizontal"') ?>
+            <?= form_hidden('id_user') ?>
+            <div id="priv_body"></div>
+            <?= form_close() ?>
         </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-refresh"></i> Batal</button>

@@ -5896,9 +5896,11 @@ td.visible-print {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
+  background-color: transparent;
 }
 .fade.in {
   opacity: 1;
+  background-color: transparent;
 }
 .collapse {
   display: none;

@@ -42,6 +42,8 @@
     <script type="text/javascript">
     
     $(function(){
+      localStorage.setItem("dc_menu", '');
+      localStorage.setItem("dc_nama_menu", '');
       $('#formsign').submit(function(){
         
         $.ajax({

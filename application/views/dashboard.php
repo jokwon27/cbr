@@ -33,11 +33,43 @@
 
     <!-- bootstrap css -->
     <link href="<?= base_url() ?>/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= base_url('assets/css/bootstrap-dialog.css')?>" rel="stylesheet">
 
     <!-- custom css -->
     <link href="<?= base_url() ?>/assets/css/main.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="<?= base_url('assets/pnotify/jquery.pnotify.default.css') ?>" media="all" rel="stylesheet" type="text/css" />
+
+    <script src="<?= base_url() ?>/assets/js/jquery.min.js"></script>
+    <script src="<?= base_url() ?>/assets/js/bootstrap.js"></script>
+    <script src="<?= base_url() ?>/assets/js/library.js"></script>
+    <script src="<?= base_url() ?>/assets/js/jquery-ui-1.8.23.custom.min.js"></script>
+    <script type="text/javascript" src="<?= base_url('assets/js/bootstrap-dialog.js') ?>"></script>
+    <script type="text/javascript" src="<?= base_url('assets/pnotify/jquery.pnotify.min.js') ?>"></script>
 
     <script type="text/javascript">
+
+      $(function(){
+        var dc_menu = localStorage.getItem("dc_menu");
+        var dc_nama_menu = localStorage.getItem("dc_nama_menu");
+        if(dc_nama_menu !== ''){
+          set_title_page(dc_nama_menu);
+        }else{
+          //set_title_page('');
+        }
+        if (dc_menu !== '') {
+            $.ajax({
+                url:dc_menu,
+                data: '',
+                cache: false,
+                success: function(data) {
+                    $('#main_content').empty();
+                    $('#main_content').html(data);                        
+                }
+            });
+        }
+      });
 
       function load_menu(url,menu) {
             localStorage.setItem("dc_menu", '<?= base_url("'+url+'") ?>');
@@ -206,7 +238,7 @@
           <li>
             <a onclick="load_menu('<?= $m->url?>', '<?= $m->nama?>')" style="cursor:pointer;">
               <div class="icon">
-                <span class="fs1" aria-hidden="true" data-icon="&#xe0d2;"></span>
+                <span class="fs1 <?= $m->icon ?>" aria-hidden="true"></span>
               </div>
               <?= $m->nama ?>
             </a>
@@ -251,10 +283,6 @@
 
     <!--<script src="<?= base_url() ?>/assets/js/wysiwyg/wysihtml5-0.3.0.js"></script> -->
 
-    <script src="<?= base_url() ?>/assets/js/jquery.min.js"></script>
-    <script src="<?= base_url() ?>/assets/js/bootstrap.js"></script>
-    <script src="<?= base_url() ?>/assets/js/jquery-ui-1.8.23.custom.min.js"></script>
-
 
     <!-- Flot charts 
     <script src="<?= base_url() ?>/assets/js/flot/jquery.flot.js"></script>
@@ -272,10 +300,7 @@
 
     <!-- <script src="<?= base_url() ?>/assets/js/rating/jquery.raty.js"></script> -->
 
-    <!-- custom Js -->
-    <script src="<?= base_url() ?>/assets/js/custom-index.js"></script>
 
-    <script src="<?= base_url() ?>/assets/js/custom.js"></script>
 
 
     

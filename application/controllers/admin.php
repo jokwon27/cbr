@@ -99,6 +99,8 @@ class Admin extends CI_Controller {
         $data['artikel_populer'] = $this->m_admin->artikel_populer();
 		$this->show_dashboard($data);
 	}
+
+    
     
     
 
