@@ -48,7 +48,8 @@ class M_app extends CI_Model{
         }
 
         if (isset($search['username']) && ($search['username'] !== '')) {
-            $q = " and username like '%".$search['username']."%'";
+            $q = " and username like '%".$search['username']."%' 
+                 or nama like '%".$search['username']."%'";
         }
         $limit = " limit $start, $limit ";
         $sql = "select * from users where id is not null $q order by username";

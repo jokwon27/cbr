@@ -14,7 +14,7 @@
             return false;
         });
 
-        $('.form-control').keyup(function(){
+        $('.myinput').keyup(function(){
             if($(this).val() !== ''){
                 dc_validation_remove(this);
             }

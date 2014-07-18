@@ -20,7 +20,7 @@
 
   <head>
     <meta charset="utf-8">
-    <title>Slick Admin</title>
+    <title>Sistem Rekomendasi</title>
     <meta name="author" content="John">
     <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
     <meta name="description" content="Slick Admin Admin UI">
